@@ -1,0 +1,57 @@
+Original prompt: Build and iterate a playable web game in this workspace, validating changes with a Playwright loop. Use the lecha dodi game from earlier.
+
+- Replaced the earlier p5/CDN sketch with a self-contained HTML canvas implementation so the game can run offline in the restricted environment.
+- Planned gameplay loop: start screen -> collect sparks -> key appears -> collect key -> sing at gate -> open gate -> cross to win.
+- Required hooks to add and verify: `window.render_game_to_text`, deterministic `window.advanceTime(ms)`, fullscreen toggle, restart, pause, and Playwright validation artifacts.
+- Implemented the first playable pass in `sketch.js` with title, movement, spark collection, key spawning, gate blessing, win state, pause, restart, fullscreen, HUD, and text-state output.
+- Fixed an initial progression bug: the spawned key now appears low enough to be collectible by the walking character.
+- Fixed collectible logic so sparks and the key are gathered by shoreline overlap on the x-axis, matching the side-view composition instead of impossible full-distance checks.
+- Installed a local Node/Playwright toolchain in the workspace and validated the game with the provided Playwright client.
+- Reworked the game around a 20-spark progression instead of the earlier key/gate loop.
+- Added local art assets in `assets/figure.png` and `assets/spark.png`, sourced from the user's Desktop images, and integrated them as the player figure and spark collectibles.
+- Added the Shabbat scene transition at 20 sparks: candles appear, the sky shifts to deep blue, and a soft glowing light fills the scene.
+- Added an ocean-entry mechanic on the right side of the shore; the figure can descend into the water like a mikveh using Up/Down or W/S, and `render_game_to_text` now exposes immersion state plus the ocean entry zone.
+- Changed spark collection so each spark now requires answering one of seven reflective prompts before it can be gathered. The overlay is now free-response text input instead of multiple choice, and the question state plus current typed response are exposed in `render_game_to_text`.
+- Current reflective prompt set:
+- `What is your name?`
+- `What is special about you?`
+- `How can you experience Shabbat better?`
+- `What is a good deed you want to do?`
+- `What is this week's Parsha?`
+- `Tell me, do you believe in yourself?`
+- `Do you believe you can change the world?`
+- Voice/singing prompt set added after the first seven typed reflections:
+- `Say "Lecha Dodi".`
+- `Sing a note.`
+- `Say "Good Shabbos".`
+- `Say "I love Hashem".`
+- `Say "I love my fellow like myself".`
+- Voice prompts use browser speech recognition and the sung-note prompt uses microphone pitch detection. There is a webdriver-only bypass so the Playwright harness can continue validating progression without real microphone input.
+- Spark visibility now reveals only the current active spark; future spark images stay hidden until the next question unlocks them.
+- Added a per-spark image sequence in `assets/sparks/` using the latest files copied from the Desktop:
+- `spark-01.png` <- `plaster body cast with bowl.png`
+- `spark-02.png` <- `seeds and comb.png`
+- `spark-03.png` <- `Violence from the Moon.png`
+- `spark-04.png` <- `moon man ceramic2.png`
+- `spark-05.png` <- `ceramic ladder.png`
+- `spark-06.png` <- `ceramic mess.png`
+- `spark-07.png` <- `ceramicdove.png`
+- `spark-08.png` <- `face ceramic.png`
+- The renderer now uses these spark images in order and cycles them for later sparks until more files are added.
+- Latest Playwright validations:
+- `output/web-game-shabbat-20/` confirms `sparksCollected: 20`, `mode: "shabbat"`, `candlesVisible: true`, and the visual transition screenshot.
+- `output/web-game-mikveh/` confirms ocean immersion with `player.immersion: 1` and the mikveh screenshot.
+- `output/web-game-question-prompt/` confirms the unanswered reflective-question overlay and exposes the active prompt in the text state.
+- `output/web-game-question-answer/` confirms a typed answer collects the spark and increments progress to `1/20`.
+- `output/web-game-voice-prompt/` confirms spark 8 opens the microphone-driven `Say "Lecha Dodi".` prompt.
+- `output/web-game-voice-answer/` confirms automated progression through spark 8 to `8/20` using the webdriver-only bypass path.
+- `output/web-game-hidden-sparks/` confirms only the next active spark is visible in both the screenshot and `render_game_to_text`.
+- `output/web-game-spark-images/` confirms the first active spark now renders with the new `spark-01.png` asset and remains the only visible spark.
+- `output/web-game-spark-07/` confirms spark `6` now renders with `imageIndex: 6`, using the newly added `spark-07.png`.
+- `output/web-game-spark-08/` confirms spark `7` now renders with `imageIndex: 7`, using the newly added `spark-08.png`.
+- Cross-device pass completed:
+- Added a real DOM question panel for typed answers on phones/tablets in `index.html`/`styles.css`, so mobile users are not forced to type into the canvas-only overlay.
+- Added touch controls for left/right/up/down/enter on small screens.
+- Added `manifest.webmanifest` and `sw.js` so the project can be installed and cached like a basic PWA/static web app.
+- `output/web-game-device-ready/` confirms the updated app shell still loads, opens the first question correctly, and keeps the game state intact after the mobile/PWA changes.
+- Remaining polish ideas if another agent continues: refine spark placement or shrink them further if you want more negative space around the mikveh scene, and re-test fullscreen in a headed browser if fullscreen behavior needs explicit validation.

@@ -1,0 +1,17 @@
+{
+  "name": "Lecha Dodi: Shabbat Sparks",
+  "short_name": "Shabbat Sparks",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#c6d3dc",
+  "theme_color": "#c6d3dc",
+  "description": "A playable reflective web game about gathering sparks and welcoming Shabbat.",
+  "icons": [
+    {
+      "src": "assets/figure.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
