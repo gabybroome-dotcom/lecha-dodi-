@@ -1,0 +1,65 @@
+{
+  "coordinateSystem": {
+    "origin": "top-left",
+    "xDirection": "right",
+    "yDirection": "down",
+    "units": "canvas pixels"
+  },
+  "mode": "playing",
+  "paused": false,
+  "fullscreen": false,
+  "message": "Spark gathered 2/5.",
+  "player": {
+    "x": 341,
+    "y": 430,
+    "vx": 210,
+    "facing": 1
+  },
+  "objective": {
+    "sparksCollected": 2,
+    "sparksTotal": 5,
+    "keyVisible": false,
+    "keyCollected": false,
+    "gateBlessing": 0,
+    "gateOpen": false
+  },
+  "visibleEntities": {
+    "sparks": [
+      {
+        "id": 2,
+        "x": 470,
+        "y": 276
+      },
+      {
+        "id": 3,
+        "x": 635,
+        "y": 210
+      },
+      {
+        "id": 4,
+        "x": 780,
+        "y": 276
+      }
+    ],
+    "key": null,
+    "gate": {
+      "x": 850,
+      "y": 250,
+      "width": 66,
+      "height": 150
+    }
+  },
+  "controls": {
+    "move": [
+      "ArrowLeft",
+      "ArrowRight",
+      "KeyA",
+      "KeyD"
+    ],
+    "sing": "Space",
+    "interact": "Enter",
+    "pause": "KeyP",
+    "restart": "KeyR",
+    "fullscreen": "KeyF"
+  }
+}
