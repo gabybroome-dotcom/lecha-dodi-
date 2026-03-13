@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecha Dodi: Shabbat Sparks</title>
+  <meta name="theme-color" content="#c6d3dc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="intro">
+      <p class="eyebrow">Playable canvas poem</p>
+      <h1>Lecha Dodi: Shabbat Sparks</h1>
+      <p class="lede">
+        Walk the shoreline, gather twenty sparks, and let the whole scene deepen into Shabbat.
+      </p>
+      <p class="message">Come, greet the Sabbath bride.</p>
+    </section>
+
+    <section class="game-panel">
+      <div class="hud-copy">
+        <p>Move with arrow keys or A/D. The first sparks ask reflective questions that you type answers for, and later sparks ask you to speak or sing into the microphone. Collect all twenty to bring in Shabbat. On the right side, use Up/Down or W/S to move into the ocean like a mikveh. Press Space or Enter to begin, P to pause, R to restart, and F for fullscreen.</p>
+      </div>
+      <div class="canvas-shell">
+        <button id="start-btn" type="button">Begin the walk</button>
+        <canvas id="game" width="960" height="600" aria-label="Lecha Dodi game"></canvas>
+      </div>
+      <section id="question-ui" class="question-ui hidden" aria-live="polite">
+        <p id="question-ui-prompt" class="question-ui-prompt"></p>
+        <div id="question-ui-text" class="question-ui-row hidden">
+          <input id="question-input" type="text" autocomplete="off" placeholder="Type your answer">
+          <button id="question-submit" type="button">Submit</button>
+        </div>
+        <div id="question-ui-voice" class="question-ui-row hidden">
+          <p id="question-ui-status" class="question-ui-status"></p>
+          <button id="mic-retry" type="button">Retry Mic</button>
+        </div>
+      </section>
+      <section class="touch-controls" aria-label="Touch controls">
+        <div class="touch-row">
+          <button class="touch-btn" data-control="left" type="button">Left</button>
+          <button class="touch-btn" data-control="right" type="button">Right</button>
+        </div>
+        <div class="touch-row">
+          <button class="touch-btn" data-control="up" type="button">Up</button>
+          <button class="touch-btn" data-control="down" type="button">Down</button>
+          <button class="touch-btn touch-btn-wide" data-control="enter" type="button">Enter</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="sketch.js"></script>
+</body>
+</html>
